@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Перепрадователь — для молодых учителей</title>
+    <meta
+      name="description"
+      content="TeacherHub — материалы, шаги, журнал, FAQ и AI помощник для молодых учителей."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="grid"></div>
+      <div class="glow glow--1"></div>
+      <div class="glow glow--2"></div>
+    </div>
+
+    <header class="header">
+      <div class="container header__inner">
+        <a class="brand" href="#/home" aria-label="TeacherHub">
+          <span class="brand__mark" aria-hidden="true">TH</span>
+          <span class="brand__text">
+            <span class="brand__name">Перепрадователь</span>
+            <span class="brand__tag">для молодых учителей</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a class="nav__link" href="#/ai">AI помощник</a>
+          <a class="nav__link" href="#/lessons">Уроки</a>
+          <a class="nav__link" href="#/journal">Журнал</a>
+          <a class="nav__link" href="#/steps">Шаги</a>
+          <a class="nav__link" href="#/faq">FAQ</a>
+          <a class="nav__link" href="#/community">Сообщество</a>
+          <a class="nav__link" href="#/support">Техподдержка</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="user" id="userBadge" hidden>
+            <span class="user__dot" aria-hidden="true"></span>
+            <span class="user__name" id="userName"></span>
+          </div>
+          <button class="btn btn--ghost" id="loginBtn" type="button">Войти</button>
+          <button class="btn btn--primary" id="signupBtn" type="button">Регистрация</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <section class="hero" id="hero">
+          <div class="hero__copy">
+            <h1 class="hero__title">
+              Всё, что нужно молодому учителю — в одном месте
+            </h1>
+            <p class="hero__subtitle">
+              Шаблоны для журнала, материалы к урокам, частые вопросы, сообщество и AI помощник.
+              Начни с регистрации и выбери, что тебе нужно.
+            </p>
+            <div class="hero__cta">
+              <button class="btn btn--primary" id="heroSignup" type="button">
+                Начать — регистрация
+              </button>
+              <a class="btn btn--ghost" href="#/steps">Посмотреть “Шаги”</a>
+            </div>
+            <div class="chips" aria-label="Быстрые действия">
+              <a class="chip" href="#/journal">Заполнить журнал</a>
+              <a class="chip" href="#/lessons">Найти презентации</a>
+              <a class="chip" href="#/ai">Задать вопрос AI</a>
+              <a class="chip" href="#/faq">Частые вопросы</a>
+            </div>
+          </div>
+
+          <div class="hero__card">
+            <div class="card">
+              <div class="card__header">
+                <h2 class="card__title">Быстрый старт</h2>
+                <p class="card__desc">2 минуты, чтобы настроить под себя</p>
+              </div>
+              <ol class="steps">
+                <li class="steps__item">
+                  <span class="steps__num">1</span>
+                  <span class="steps__text">Регистрация и выбор предметов</span>
+                </li>
+                <li class="steps__item">
+                  <span class="steps__num">2</span>
+                  <span class="steps__text">Открой “Уроки” и сохрани нужные материалы</span>
+                </li>
+                <li class="steps__item">
+                  <span class="steps__num">3</span>
+                  <span class="steps__text">Используй AI для планов уроков и объяснений</span>
+                </li>
+              </ol>
+              <div class="card__footer">
+                <button class="btn btn--primary w-full" id="cardSignup" type="button">
+                  Зарегистрироваться
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content" id="app" aria-live="polite"></section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <span class="muted">© <span id="year"></span> Перепрадователь</span>
+          <span class="dot" aria-hidden="true">•</span>
+          <a class="muted link" href="#/support">Техподдержка</a>
+        </div>
+        <div class="footer__right">
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="modal" id="authModal" aria-labelledby="authTitle">
+      <form class="modal__panel" method="dialog" id="authForm">
+        <div class="modal__top">
+          <div>
+            <h2 class="modal__title" id="authTitle">Вход</h2>
+            <p class="modal__subtitle" id="authSubtitle">
+              Пока без сервера: формы и подготовка под интеграцию.
+            </p>
+          </div>
+          <button class="icon-btn" type="button" id="closeAuth" aria-label="Закрыть">
+            ✕
+          </button>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Вход или регистрация">
+          <button class="tabs__tab is-active" type="button" role="tab" id="tabLogin">
+            Вход
+          </button>
+          <button class="tabs__tab" type="button" role="tab" id="tabSignup">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="form" id="loginPane">
+          <label class="field">
+            <span class="field__label">Email</span>
+            <input class="input" name="email" type="email" placeholder="name@school.ru" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Пароль</span>
+            <input class="input" name="password" type="password" placeholder="••••••••" required />
+          </label>
+          <button class="btn btn--primary w-full" type="submit" data-action="login">
+            Войти
+          </button>
+          <p class="muted small">
+            Нет аккаунта?
+            <button class="linklike" type="button" id="toSignup">Создать</button>
+          </p>
+        </div>
+
+        <div class="form" id="signupPane" hidden>
+          <div class="grid2">
+            <label class="field">
+              <span class="field__label">Имя</span>
+              <input class="input" name="name" type="text" placeholder="Алина" required />
+            </label>
+            <label class="field">
+              <span class="field__label">Город (опционально)</span>
+              <input class="input" name="city" type="text" placeholder="Казань" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">Email</span>
+            <input class="input" name="emailSignup" type="email" placeholder="name@school.ru" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Пароль</span>
+            <input class="input" name="passwordSignup" type="password" placeholder="Минимум 8 символов" required />
+          </label>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">Что тебе нужно в первую очередь?</legend>
+            <div class="checks">
+              <label class="check">
+                <input type="checkbox" name="need" value="journal" checked />
+                <span>Журнал (инструкции/шаблоны)</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="need" value="lessons" checked />
+                <span>Материалы к урокам</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="need" value="ai" checked />
+                <span>AI помощник</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="need" value="community" />
+                <span>Сообщество</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">Предметы (можно несколько)</legend>
+            <div class="pillbox" id="subjects"></div>
+          </fieldset>
+
+          <button class="btn btn--primary w-full" type="submit" data-action="signup">
+            Создать аккаунт
+          </button>
+          <p class="muted small">
+            Уже есть аккаунт?
+            <button class="linklike" type="button" id="toLogin">Войти</button>
+          </p>
+        </div>
+
+        <div class="notice" id="authNotice" hidden></div>
+      </form>
+    </dialog>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
